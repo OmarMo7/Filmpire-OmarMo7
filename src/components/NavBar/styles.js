@@ -28,9 +28,9 @@ export default makeStyles((theme) => ({
     },
     linkButton: {
       '&:hover': {
-        color: 'white',
         textDecoration: 'none'
-      }
+      },
+      color: theme.palette.text.primary
     }
   }
 

@@ -1,17 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material'
 import { Menu, AccountCircle, Brightness7, Brightness4 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 import useClasses from './styles'
-import Sidebar from "../Sidebar/Sidebar"
+import { Sidebar, Search } from ".."
+import { createSessionId, fetchToken, moviesApi } from '../utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser } from '../../features/auth'
 const NavBar = () => {
 
   const classes = useClasses()
+  const { isAuth, user } = useSelector((state) => state.user)
   const theme = useTheme()
-  const isAuth = false
   const [mobileOpen, setMobileOpen] = useState(false)
   const isMobile = useMediaQuery('(max-width:600px)')
+  const token = localStorage.getItem('request_token')
+  const session_id_from_LS = localStorage.getItem('session_id')
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const logInUser = async () => {
+      if (token) {
+        if (session_id_from_LS) {
+          const { data: userData } = await moviesApi.get(`/account?session_id=${session_id_from_LS}`)
+          dispatch(setUser(userData))
+        }
+        else {
+          const session_id = await createSessionId()
+          const { data: userData } = await moviesApi.get(`/account?session_id=${session_id}`)
+          dispatch(setUser(userData))
+        }
+      }
+    }
+
+    logInUser()
+  }, [token])
+
   return (
     <>
       <AppBar position="fixed">
@@ -33,29 +58,30 @@ const NavBar = () => {
           >
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          {!isMobile && (<div>Search ... </div>)}
+          {!isMobile && (<Search />)}
           <div>
             {!isAuth ? (
-              <Button color="inherit" onClick={() => { }}>
+              <Button color="inherit" onClick={fetchToken}>
                 Login &nbsp; <AccountCircle />
               </Button>
             ) : (
               <Button
                 component={Link}
-                to={`/profile/:id`}
+                to={`/profile/${user.id}`}
                 className={classes.linkButton}
+                color={"inherit"}
                 onClick={() => { }}
               >
-                {!isMobile && <>My Movies &nbsp; </>}
+                <div color={"inherit"}>My Movies &nbsp; </div>
                 <Avatar
-                  style={{ width: '30px', hegith: '30px' }}
+                  style={{ width: '40px', height: '40px' }}
                   alt="profile"
                   src={"https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-icon-eps-file-easy-to-edit-default-avatar-photo-placeholder-profile-icon-124557887.jpg"}
                 />
               </Button>
             )}
           </div>
-          {isMobile && 'Search...'}
+          {isMobile && <Search />}
         </Toolbar>
       </AppBar>
       <div>
