@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal, Typography, Button, ButtonGroup, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material'
 import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowLink, ArrowBack } from '@mui/icons-material'
 import { Link, useParams } from 'react-router-dom'
@@ -17,7 +17,9 @@ const MovieInfo = () => {
   const { data, isFetching, error } = useGetMovieQuery(id)
   const classes = useStyles()
   const dispatch = useDispatch()
+  const [open, setOpen] = useState(false)
   const { data: recommendedData, isFetching: isFetchingRecommend } = useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' })
+  const isMobile = useMediaQuery('(max-width:600px)')
   const isFavorited = false
   const isWatchListed = false
 
@@ -46,7 +48,7 @@ const MovieInfo = () => {
   console.log(data)
   return (
     <Grid container className={classes.containerSpaceAround}>
-      <Grid item sm={12} lg={4}>
+      <Grid item sm={12} lg={4} >
         <img className={classes.poster} alt={data?.title} src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`} />
       </Grid>
       <Grid item container direction={"column"} lg={7}>
@@ -64,8 +66,7 @@ const MovieInfo = () => {
             </Typography>
           </Box>
           <Typography align={"center"} variant={"h6"} gutterBottom>
-            {data?.runtime} min
-            {data.spoken_languages.length > 0 ? `/ ${data.spoken_languages[0].name}` : ''}
+            {data?.runtime} min | Language: {data.spoken_languages[0].name}
           </Typography>
         </Grid>
         <Grid item className={classes.genresContainer}>
@@ -100,22 +101,24 @@ const MovieInfo = () => {
           )).slice(0, 6)}
         </Grid>
         <Grid item container style={{ marginTop: '2rem' }}>
-          <div className={classes.buttonsContainer}>
+          <div >
             <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-              <ButtonGroup size={"medium"}>
+              <ButtonGroup size={!isMobile ? "medium" : "small"}>
                 <Button target={"_blank"} href={data?.homepage} endIcon={<Language />}>
                   Website
                 </Button>
                 <Button target={"_blank"} href={`www.imdb.com/title/${data?.imdb_id}`} endIcon={<MovieIcon />}>
                   IMDB
                 </Button>
-                <Button onClick={() => { }} href="#" endIcon={<Theaters />}>
-                  Trailer
-                </Button>
+                {data?.videos.results.length > 0 && (
+                  <Button onClick={() => { setOpen(true) }} endIcon={<Theaters />}>
+                    Trailer
+                  </Button>
+                )}
               </ButtonGroup>
             </Grid>
             <Grid item xs={12} sm={6} className={classes.buttonsContainer}>
-              <ButtonGroup size={"medium"}>
+              <ButtonGroup size={!isMobile ? "medium" : "small"}>
                 <Button onClick={addToFavorites}
                   endIcon={isFavorited ? <FavoriteBorderOutlined /> : <Favorite />} >
                   {!isFavorited ? 'Favorite' : 'Unfavorite'}
@@ -148,7 +151,20 @@ const MovieInfo = () => {
         }
       </Box>
 
-      
+      <Modal closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => { setOpen(false) }}
+      >
+        <iframe
+          autoPlay
+          className={classes.video}
+          frameBorder={'0'}
+          title={`${data?.title} Trailer`}
+          src={`https://www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
+          allow="autoplay"
+        />
+      </Modal>
     </Grid>
   )
 }
