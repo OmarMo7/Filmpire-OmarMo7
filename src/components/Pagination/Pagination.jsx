@@ -4,9 +4,9 @@ import useStyles from './styles'
 
 const Pagination = ({ currentPage, setPage, totalPages }) => {
 
-  if (totalPages === 0) return null;
 
   const classes = useStyles()
+  if (totalPages === 0) return null;
 
   const handlePrev = () => {
     if (currentPage !== 1) {
