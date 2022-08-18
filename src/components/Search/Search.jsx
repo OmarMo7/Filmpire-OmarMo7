@@ -11,6 +11,10 @@ const Search = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const location = useLocation()
+
+  if (location.pathname !== '/') return null
+
   const onKey = (e) => {
     if (e.keyCode === 13) {
       dispatch(searchMovie(query))
