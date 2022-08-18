@@ -11,11 +11,9 @@ export default makeStyles((theme) => ({
     }
   },
   menuButton: {
-    // marginRight: theme.spacing(2),
     outline: 'none',
     color: "#fff",
     [theme.breakpoints.up('sm')]: {
-      // display: 'none'
     }
   },
   drawer: {
