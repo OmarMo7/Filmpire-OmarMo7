@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material'
 import { Menu, AccountCircle, Brightness7, Brightness4 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
@@ -8,11 +8,14 @@ import { Sidebar, Search } from ".."
 import { createSessionId, fetchToken, moviesApi } from '../utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../features/auth'
+import { ColorModeContext } from '../utils/ToggleColorsMode'
+
 
 const drawerWidth = 240
 
 const NavBar = ({ mobileOpen, setMobileOpen }) => {
 
+  const colorMode = useContext(ColorModeContext)
   const classes = useClasses()
   const { isAuth, user } = useSelector((state) => state.user)
   const theme = useTheme()
@@ -40,7 +43,6 @@ const NavBar = ({ mobileOpen, setMobileOpen }) => {
         console.log(error)
       }
     }
-    // if (user) window.location.href = `${window.location.origin}/profile/${user?.id}`
 
     logInUser()
   }, [token])
@@ -64,24 +66,26 @@ const NavBar = ({ mobileOpen, setMobileOpen }) => {
     <>
       <AppBar position="fixed" style={mobileOpen ? propsOnOpen : propsOnClose}>
         <Toolbar className={classes.toolbar}>
-          {(<IconButton
-            color="inherit"
-            edge="start"
-            style={{ marginLeft: '10px' }}
-            onClick={() => { setMobileOpen((prevMobileOpen) => !prevMobileOpen) }}
-            className={classes.menuButton}
-          >
-            <Menu />
-          </IconButton>
+          <div style={{ justifyContent: 'initial' }}>
+            <IconButton
+              color="inherit"
+              edge="start"
+              style={{ marginLeft: '10px' }}
+              onClick={() => { setMobileOpen((prevMobileOpen) => !prevMobileOpen) }}
+              className={classes.menuButton}
+            >
+              <Menu />
+            </IconButton>
+            <IconButton
+              color="inherit"
+              sx={{ ml: 1 }}
+              onClick={colorMode.toggleColorMode}
+            >
+              {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </div>
+          {!isMobile && (<Search />
           )}
-          <IconButton
-            color="secondary"
-            sx={{ ml: 1 }}
-            onClick={() => { }}
-          >
-            {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
-          {!isMobile && (<Search />)}
           {((isMobile && !mobileOpen) || !isMobile) && (
             <div>
               {!isAuth ? (
