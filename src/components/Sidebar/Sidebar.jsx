@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Divider, List, ListItem, ListSubheader, ListItemIcon, ListItemButton, Box, CircularProgress, ListItemText } from '@mui/material'
+import { Divider, List, ListItem, ListSubheader, ListItemIcon, ListItemButton, Box, CircularProgress, ListItemText, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 import useStyles from './styles'
@@ -7,11 +7,12 @@ import { useGetGenresQuery } from '../../services/TMDB'
 import genreIcons from '../../assets/assets/genres'
 import { useDispatch, } from 'react-redux'
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory'
+import redLogo from '../../images/OCINEMA_red.png'
+import blueLogo from '../../images/OCINEMA_blue.png'
+
 const Sidebar = () => {
 
   const { data, isFetching } = useGetGenresQuery()
-  const redLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
-  const blueLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
   const theme = useTheme()
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -29,8 +30,8 @@ const Sidebar = () => {
       <Link to='/' className={classes.imageLink}>
         <img
           className={classes.image}
-          src={theme.palette.mode === 'light' ? redLogo : blueLogo}
-          alt="Filmpire"
+          src={theme.palette.mode === 'light' ? blueLogo : redLogo}
+          alt="OCINEMA"
         />
       </Link>
       <Divider />
