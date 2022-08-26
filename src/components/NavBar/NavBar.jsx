@@ -9,7 +9,7 @@ import { createSessionId, fetchToken, moviesApi } from '../utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../features/auth'
 import { ColorModeContext } from '../utils/ToggleColorsMode'
-
+import flipIcons from './flipIcons'
 
 const drawerWidth = 240
 
@@ -61,6 +61,8 @@ const NavBar = ({ mobileOpen, setMobileOpen }) => {
       duration: theme.transitions.duration.leavingScreen,
     })
   }
+
+  flipIcons(theme)
 
   return (
     <>
