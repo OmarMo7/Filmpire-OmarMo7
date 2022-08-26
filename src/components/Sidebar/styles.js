@@ -7,8 +7,11 @@ export default makeStyles((theme) => ({
   },
   imageLink: {
     display: "flex",
+    width: '252px',
+    height: '85px',
     justifyContent: "center",
-    padding: "10% 0% 0% 0%"
+    padding: "10% 0% 0% 0%",
+    marginBottom: "20px"
   },
   links: {
     color: theme.palette.text.primary,
