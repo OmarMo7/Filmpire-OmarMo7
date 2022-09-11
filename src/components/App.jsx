@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { CssBaseline } from '@mui/material'
 import { Route, Switch } from 'react-router-dom'
 import { Actors, MovieInfo, Movies, NavBar, Profile } from './'
 import { useTheme } from '@mui/material/styles'
+import useAlan from './AlanAi'
 
 import useStyles from './styles'
 
 
 const App = () => {
+
+  useAlan()
+
+  const alanBtnContainer = useRef()
   const classes = useStyles()
   const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
@@ -50,6 +55,7 @@ const App = () => {
           </Route>
         </Switch>
       </main>
+      <div ref={alanBtnContainer} />
     </div>
   )
 }
