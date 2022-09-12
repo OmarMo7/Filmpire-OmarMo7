@@ -1,5 +1,5 @@
 import { Typography, Button } from '@mui/material'
-import React, { useRef } from 'react'
+import React from 'react'
 import useStyles from './styles'
 
 const Pagination = ({ currentPage, setPage, totalPages }) => {

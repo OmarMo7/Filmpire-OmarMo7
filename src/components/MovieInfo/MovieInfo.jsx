@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Typography, Button, ButtonGroup, Grid, Box, CircularProgress, useMediaQuery, Rating } from '@mui/material'
-import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowLink, ArrowBack } from '@mui/icons-material'
+import { Movie as MovieIcon, Theaters, Language, PlusOne, Favorite, FavoriteBorderOutlined, Remove, ArrowBack } from '@mui/icons-material'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
@@ -21,7 +21,8 @@ const MovieInfo = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
-  const { data: recommendedData, isFetching: isFetchingRecommend } = useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' })
+  //, isFetching: isFetchingRecommend
+  const { data: recommendedData } = useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' })
   const isMobile = useMediaQuery('(max-width:600px)')
   const { data: favoritedMovies } = useGetListQuery({
     listName: '/favorite/movies',
@@ -112,7 +113,7 @@ const MovieInfo = () => {
         <Grid item className={classes.genresContainer}>
           {data?.genres?.map(({ name, id }) => (
             <Link key={name} className={classes.links} to="/" onClick={() => { dispatch(selectGenreOrCategory(id)) }}>
-              <img src={genreIcons[name.toLowerCase()]} className={classes.genreImage} height={30} />
+              <img alt={name.toLowerCase()} src={genreIcons[name.toLowerCase()]} className={classes.genreImage} height={30} />
               <Typography color={"textPrimary"} variant="subtitle1" >
                 {name}
               </Typography>

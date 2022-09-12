@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material'
 import { Menu, AccountCircle, Brightness7, Brightness4 } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
@@ -45,7 +45,7 @@ const NavBar = ({ mobileOpen, setMobileOpen }) => {
     }
 
     logInUser()
-  }, [token])
+  }, [token, dispatch, session_id_from_LS])
 
   const propsOnOpen = {
     width: `calc(100% - ${drawerWidth}px)`,

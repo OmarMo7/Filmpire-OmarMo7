@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import alanBtn from '@alan-ai/alan-sdk-web';
 import { ColorModeContext } from './utils/ToggleColorsMode'
 import { fetchToken } from './utils';
@@ -49,7 +49,7 @@ const useAlan = () => {
         }
       }
     });
-  }, []);
+  });
 }
 
 export default useAlan

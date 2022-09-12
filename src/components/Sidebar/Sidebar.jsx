@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Divider, List, ListItem, ListSubheader, ListItemIcon, ListItemButton, Box, CircularProgress, ListItemText, Typography } from '@mui/material'
+import React from 'react'
+import { Divider, List, ListItem, ListSubheader, ListItemIcon, ListItemButton, Box, CircularProgress, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
 import useStyles from './styles'
@@ -45,7 +45,7 @@ const Sidebar = () => {
               <ListItem sx={{ paddingTop: "0px", paddingBottom: "0px" }}
                 onClick={() => { dispatch(selectGenreOrCategory(value)) }}>
                 <ListItemIcon color={theme.palette.text.primary}>
-                  <img src={genreIcons[label.toLowerCase()]} className={classes.genreImage} height={30} />
+                  <img alt={label} src={genreIcons[label.toLowerCase()]} className={classes.genreImage} height={30} />
                 </ListItemIcon>
                 <ListItemText primary={label} />
               </ListItem>
@@ -69,7 +69,8 @@ const Sidebar = () => {
                 <ListItem sx={{ paddingTop: "0px", paddingBottom: "0px" }}
                   onClick={() => { dispatch(selectGenreOrCategory(id)) }}>
                   <ListItemIcon color={theme.palette.text.primary}>
-                    <img src={genreIcons[name.toLowerCase()]} className={classes.genreImage} height={30} />
+                    <img alt={name.toLowerCase()} src={genreIcons[name.toLowerCase()]}
+                      className={classes.genreImage} height={30} />
                   </ListItemIcon>
                   <ListItemText primary={name} />
                 </ListItem>

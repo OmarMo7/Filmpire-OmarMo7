@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Typography, Button, Box } from '@mui/material'
-import { ExitToApp, Favorite } from '@mui/icons-material'
+import { ExitToApp } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { useGetListQuery } from '../../services/TMDB'
 import { RatedCards } from '..'
@@ -26,7 +26,7 @@ const Profile = () => {
     refetchFavorited()
     refetchWatchListed()
 
-  }, [])
+  })
 
 
   const logout = () => {

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useStyles from './styles'
-import { AppBar, TextField, Button, InputAdornment } from '@mui/material'
+import {  TextField, InputAdornment } from '@mui/material'
 import { Search as SearchIcon } from '@mui/icons-material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { searchMovie } from '../../features/currentGenreOrCategory'
 

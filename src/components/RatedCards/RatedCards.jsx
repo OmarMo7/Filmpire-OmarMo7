@@ -22,7 +22,7 @@ const RatedCards = ({ title, data }) => {
 
         ) :
           (
-            <div style={{ marginLeft: '10px' }}>
+            <div style={{ marginLeft: '10px', marginBottom: "50px" }}>
               No movies to show
             </div>
           )

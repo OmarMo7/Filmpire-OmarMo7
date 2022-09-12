@@ -1,5 +1,4 @@
 import makeStyles from "@mui/styles/makeStyles";
-import { textAlign } from "@mui/system";
 
 
 export default makeStyles((theme) => ({

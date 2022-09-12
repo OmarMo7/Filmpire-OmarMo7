@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularProgress, Grid, Typography, Box } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import useStyles from './styles'
 import { Movie } from '..'
