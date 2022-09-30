@@ -18,8 +18,8 @@ const useAlan = () => {
       key: 'b4ee9b43e41a0e9de6b8cbbc6d1363bd2e956eca572e1d8b807a3e2338fdd0dc/stage',
       onCommand: ({ command, mode, genres, genreOrCategory, query }) => {
         switch (command) {
-          case "changeMood":
-            (mode === 'dark') ? setMode('dark') : setMode('light')
+          case "changeMode":
+              (mode === 'dark') ? setMode('dark') : setMode('light')
             break;
           case "login":
             fetchToken()
