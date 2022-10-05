@@ -23,7 +23,6 @@ const Sidebar = () => {
 
   ]
 
-  console.log(theme.palette.mode)
 
   return (
     <>
